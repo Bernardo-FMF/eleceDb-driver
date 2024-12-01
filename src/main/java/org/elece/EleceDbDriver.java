@@ -50,7 +50,6 @@ public class EleceDbDriver {
 
         ResponseHandlerFactory responseHandlerFactory = ResponseHandlerFactory.getInstance();
 
-
         responseWriter.write(CONTEXT_MENU_STRING);
 
         while (true) {
