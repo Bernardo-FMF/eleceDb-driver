@@ -6,6 +6,7 @@ import org.elece.config.DriverConfig;
 import org.elece.handler.ResponseHandler;
 import org.elece.handler.ResponseHandlerFactory;
 import org.elece.io.ConsoleResponseWriter;
+import org.elece.io.LogResponseWriterDecorator;
 import org.elece.io.RequestConsoleReader;
 import org.elece.io.ResponseWriter;
 import org.elece.request.SqlRequest;
@@ -40,10 +41,10 @@ public class EleceDbDriver {
 
         DbSocket dbSocket = createSocket(driverConfig);
         RequestConsoleReader requestConsoleReader = new RequestConsoleReader();
+        ResponseWriter responseWriter = new LogResponseWriterDecorator(new ConsoleResponseWriter());
 
         ResponseHandlerFactory responseHandlerFactory = ResponseHandlerFactory.getInstance();
 
-        ResponseWriter responseWriter = new ConsoleResponseWriter();
 
         responseWriter.write(CONTEXT_MENU_STRING);
 

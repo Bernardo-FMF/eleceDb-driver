@@ -1,5 +1,7 @@
 package org.elece.socket;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elece.config.DriverConfig;
 import org.elece.request.SqlRequest;
 import org.elece.utils.BinaryUtils;
@@ -14,6 +16,8 @@ import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 
 public class DbSocket {
+    private final Logger logger = LogManager.getLogger(DbSocket.class);
+
     private final Socket socket;
     private OutputStream sender;
     private BufferedReader reader;
@@ -26,10 +30,12 @@ public class DbSocket {
     }
 
     public void sendRequest(SqlRequest sqlRequest) throws IOException {
+        logger.info("Sending request: {}", sqlRequest);
         byte[] statementBytes = BinaryUtils.stringToBytes(sqlRequest.sqlString());
         byte[] dataBytes = new byte[Integer.BYTES + statementBytes.length];
         System.arraycopy(ByteBuffer.wrap(BinaryUtils.integerToBytes(statementBytes.length)).order(ByteOrder.LITTLE_ENDIAN).array(), 0, dataBytes, 0, Integer.BYTES);
         System.arraycopy(statementBytes, 0, dataBytes, Integer.BYTES, statementBytes.length);
+        logger.debug("Sending serialized request: {}", dataBytes);
         sender.write(dataBytes);
         sender.flush();
     }
@@ -45,6 +51,7 @@ public class DbSocket {
     }
 
     public void close() throws IOException {
+        logger.info("Closing socket");
         sender.close();
         reader.close();
         socket.close();
