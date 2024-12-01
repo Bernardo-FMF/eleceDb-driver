@@ -29,6 +29,8 @@ public class EleceDbDriver {
             List of available queries:
                 > CREATE DATABASE <database_name>;
                 > DROP DATABASE <database_name>;
+                > CREATE TABLE <table_name> ( <column_name> <data_type> [ <column_constraint> [ ... ] ] );
+                > DROP TABLE <table_name>;
             """;
 
     private static final Map<Class<?>, Function<String, ?>> clazzHandlers;
