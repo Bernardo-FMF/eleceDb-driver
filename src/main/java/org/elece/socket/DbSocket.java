@@ -28,9 +28,25 @@ public class DbSocket {
     public void sendRequest(SqlRequest sqlRequest) throws IOException {
         byte[] statementBytes = BinaryUtils.stringToBytes(sqlRequest.sqlString());
         byte[] dataBytes = new byte[Integer.BYTES + statementBytes.length];
-        System.arraycopy(ByteBuffer.wrap(BinaryUtils.integerToBytes(statementBytes.length)).order(ByteOrder.BIG_ENDIAN).array(), 0, dataBytes, 0, Integer.BYTES);
+        System.arraycopy(ByteBuffer.wrap(BinaryUtils.integerToBytes(statementBytes.length)).order(ByteOrder.LITTLE_ENDIAN).array(), 0, dataBytes, 0, Integer.BYTES);
         System.arraycopy(statementBytes, 0, dataBytes, Integer.BYTES, statementBytes.length);
         sender.write(dataBytes);
         sender.flush();
+    }
+
+    public String readLine() throws IOException {
+        return reader.readLine();
+    }
+
+    public String readSizedString(Integer length) throws IOException {
+        char[] chars = new char[length];
+        reader.read(chars);
+        return new String(chars);
+    }
+
+    public void close() throws IOException {
+        sender.close();
+        reader.close();
+        socket.close();
     }
 }

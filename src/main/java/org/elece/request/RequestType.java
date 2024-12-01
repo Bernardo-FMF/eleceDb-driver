@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public enum RequestType {
     CREATE_DB("CREATE DATABASE"),
-    DELETE_DB("DELETE DATABASE"),
+    DROP_DB("DROP DATABASE"),
     CREATE_TABLE("CREATE TABLE"),
     DROP_TABLE("DROP TABLE"),
     CREATE_INDEX("CREATE INDEX"),
