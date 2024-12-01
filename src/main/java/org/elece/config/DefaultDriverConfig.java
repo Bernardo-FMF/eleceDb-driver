@@ -18,4 +18,12 @@ public class DefaultDriverConfig implements DriverConfig {
     public String getHost() {
         return host;
     }
+
+    @Override
+    public String toString() {
+        return "DefaultDriverConfig{" +
+                "port=" + port +
+                ", host='" + host + '\'' +
+                '}';
+    }
 }

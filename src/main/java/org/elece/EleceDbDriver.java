@@ -1,6 +1,8 @@
 package org.elece;
 
 import com.google.common.base.Strings;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elece.config.DefaultDriverConfigBuilder;
 import org.elece.config.DriverConfig;
 import org.elece.handler.ResponseHandler;
@@ -21,6 +23,8 @@ import java.util.Objects;
 import java.util.function.Function;
 
 public class EleceDbDriver {
+    private static final Logger logger = LogManager.getLogger(EleceDbDriver.class);
+
     private static final String CONTEXT_MENU_STRING = """
             List of available queries:
                 > CREATE DATABASE <database_name>;
@@ -38,6 +42,7 @@ public class EleceDbDriver {
 
     public static void main(String[] args) throws IOException {
         DriverConfig driverConfig = buildDriverConfig();
+        logger.info("Starting driver with config: {}", driverConfig);
 
         DbSocket dbSocket = createSocket(driverConfig);
         RequestConsoleReader requestConsoleReader = new RequestConsoleReader();
@@ -64,9 +69,7 @@ public class EleceDbDriver {
                 dbSocket.sendRequest(sqlRequest);
                 SqlResponse handle = responseHandler.handle(dbSocket);
 
-                for (String message : handle.getMessages()) {
-                    responseWriter.write(message);
-                }
+                responseWriter.write(String.join("\n", handle.getMessages()));
             }
         }
 
