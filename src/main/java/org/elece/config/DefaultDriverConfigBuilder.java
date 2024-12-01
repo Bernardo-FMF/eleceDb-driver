@@ -1,7 +1,9 @@
 package org.elece.config;
 
+import java.util.Objects;
+
 public class DefaultDriverConfigBuilder {
-    private int port;
+    private Integer port;
     private String host;
 
     private DefaultDriverConfigBuilder() {
@@ -22,7 +24,15 @@ public class DefaultDriverConfigBuilder {
         return this;
     }
 
+    private int getPort() {
+        return Objects.requireNonNullElse(port, 3000);
+    }
+
+    private String getHost() {
+        return Objects.requireNonNullElse(host, "127.0.0.1");
+    }
+
     public DefaultDriverConfig build() {
-        return new DefaultDriverConfig(port, host);
+        return new DefaultDriverConfig(getPort(), getHost());
     }
 }
