@@ -31,6 +31,7 @@ public class EleceDbDriver {
                 > DROP DATABASE <database_name>;
                 > CREATE TABLE <table_name> ( <column_name> <data_type> [ <column_constraint> [ ... ] ] );
                 > DROP TABLE <table_name>;
+                > CREATE UNIQUE INDEX <index_name> ON <table_name> ( <column_name> );
             """;
 
     private static final Map<Class<?>, Function<String, ?>> clazzHandlers;
