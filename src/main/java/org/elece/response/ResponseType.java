@@ -11,6 +11,7 @@ public enum ResponseType {
     UPDATE("UpdateResult"),
     ERROR("ErrorResult"),
     SELECT_START("RowDescriptionResult"),
+    ROW("RowResult"),
     SELECT_END("SelectEndResult");
 
     private final String responseType;

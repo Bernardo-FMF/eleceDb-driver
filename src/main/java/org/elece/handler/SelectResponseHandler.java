@@ -32,7 +32,7 @@ public class SelectResponseHandler implements ResponseHandler {
             }
             if (nextMessageType == 3) {
                 String rowHeader = dbSocket.readLine();
-                int rowResponseSize = Integer.parseInt(extractAttribute(rowHeader, "RowSize").get());
+                int rowResponseSize = extractResponseSize(rowHeader, ResponseType.ROW);
                 String row = dbSocket.readSizedString(rowResponseSize);
                 sqlResponse.addMessage(extractAttribute(row, "Row").get());
             }
