@@ -15,11 +15,12 @@ public class GenericResponseHandler implements ResponseHandler {
 
     @Override
     public SqlResponse handle(DbSocket dbSocket) throws IOException {
+        int messageType = Integer.parseInt(dbSocket.readSizedString(1));
         String header = dbSocket.readLine();
-        if (isErrorResponse(header)) {
+        if (isErrorResponse(messageType)) {
             return createErrorResponse(header, dbSocket);
         }
-        Integer responseSize = extractResponseSize(header, responseType);
+        int responseSize = extractResponseSize(header, responseType);
         if (responseSize > 0) {
             SqlResponse sqlResponse = new SqlResponse();
             sqlResponse.addMessage(header);

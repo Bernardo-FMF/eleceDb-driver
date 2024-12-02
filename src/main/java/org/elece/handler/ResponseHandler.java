@@ -20,11 +20,15 @@ public interface ResponseHandler {
         return 0;
     }
 
-    default boolean isErrorResponse(String header) {
-        return header.startsWith("Response::" + ResponseType.ERROR.name() + "::");
+    default boolean isErrorResponse(Integer responseType) {
+        return responseType == 0;
     }
 
-    default SqlResponse createErrorResponse(String header, DbSocket dbSocket) {
-        return null;
+    default SqlResponse createErrorResponse(String header, DbSocket dbSocket) throws IOException {
+        int responseSize = extractResponseSize(header, ResponseType.ERROR);
+        SqlResponse sqlResponse = new SqlResponse();
+        sqlResponse.addMessage(header);
+        sqlResponse.addMessage(dbSocket.readSizedString(responseSize));
+        return sqlResponse;
     }
 }
