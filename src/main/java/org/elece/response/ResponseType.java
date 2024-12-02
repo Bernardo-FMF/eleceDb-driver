@@ -9,7 +9,9 @@ public enum ResponseType {
     DELETE("DeleteResult"),
     INSERT("InsertResult"),
     UPDATE("UpdateResult"),
-    ERROR("ErrorResult");
+    ERROR("ErrorResult"),
+    SELECT_START("RowDescriptionResult"),
+    SELECT_END("SelectEndResult");
 
     private final String responseType;
 

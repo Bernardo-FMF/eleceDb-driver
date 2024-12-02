@@ -29,7 +29,7 @@ public class ResponseHandlerFactory {
             case INSERT -> new GenericResponseHandler(ResponseType.INSERT);
             case DELETE -> new GenericResponseHandler(ResponseType.DELETE);
             case UPDATE -> new GenericResponseHandler(ResponseType.UPDATE);
-            default -> null;
+            case SELECT -> new SelectResponseHandler();
         };
     }
 }
