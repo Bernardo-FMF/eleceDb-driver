@@ -42,7 +42,7 @@ Both the port and host of the EleceDb instance can be configured, as instructed 
 
 ## Environment variables
 
-Below is a list of the environment variables that
+Below is a list of the environment variables that need to be configured in order to connect to an EleceDb instance.
 
 | Env variable name | Description                      | Default value | Possible values |
 |-------------------|----------------------------------|---------------|-----------------|
