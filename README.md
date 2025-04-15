@@ -1,6 +1,6 @@
 # EleceDb
 
-![elecedb-logo.jpg](../eleceDb-driver/docs/assets/elecedb-logo.jpg)
+![elecedb-logo.jpg](./docs/assets/elecedb-logo.jpg)
 
 ## Overview
 
